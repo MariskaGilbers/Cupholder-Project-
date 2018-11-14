@@ -1,0 +1,206 @@
+#include <Stepper.h>
+
+
+/* 
+ *  stepsPerRevolution geeft aan hoeveel stapjes de microcontroller moet doen om 1
+ *  keer rond te draaien.
+ */
+const int stepsPerRevolution = 360;
+const int trigPin = 2;
+const int echoPin = 4;
+int previousHeight = 0;
+
+Stepper myStepper(stepsPerRevolution, 8, 10, 9, 11);
+
+void setup() {
+  // put your setup code here, to run once:
+  myStepper.setSpeed(50);
+  Serial.begin(9600);
+}
+
+void loop() {
+  // put your main code here, to run repeatedly:
+long duration, cm;
+pinMode(trigPin, OUTPUT);
+
+digitalWrite(trigPin, LOW);
+
+delayMicroseconds(10);
+
+digitalWrite(trigPin, HIGH);
+
+delayMicroseconds(10);
+
+digitalWrite(trigPin, LOW);
+
+pinMode(echoPin, INPUT);
+
+duration = pulseIn(echoPin, HIGH);
+
+cm = microsecondsToCentimeters(duration);
+
+Serial.print(cm);
+
+Serial.print("cm");
+
+Serial.println();
+
+delay(500);
+
+ if (cm >= 5 && cm  <= 10) {
+  if (previousHeight = 0)
+    myStepper.step(stepsPerRevolution);
+    previousHeight = 1;
+  }
+
+  if (cm >= 5 && cm  <= 10) {
+  if (previousHeight = 2)
+    myStepper.step(-stepsPerRevolution);
+    previousHeight = 1;
+  }
+
+  if (cm >= 5 && cm  <= 10) {
+  if (previousHeight = 3)
+    myStepper.step(-stepsPerRevolution*2);
+    previousHeight = 1;
+  }
+  
+  if (cm >= 5 && cm  <= 10) {
+  if (previousHeight = 4)
+    myStepper.step(-stepsPerRevolution*3);
+    previousHeight = 1;
+  }
+
+  if (cm >= 5 && cm  <= 10) {
+  if (previousHeight = 5)
+    myStepper.step(-stepsPerRevolution*4);
+    previousHeight = 1;
+  }
+
+  if (cm > 10 && cm <=15) {
+    if (previousHeight = 0)
+       myStepper.step(stepsPerRevolution*2);
+       previousHeight = 2;
+  }
+  
+  if (cm > 10 && cm <=15) {
+    if (previousHeight = 1)
+       myStepper.step(stepsPerRevolution);
+       previousHeight = 2;
+  }
+
+  if (cm > 10 && cm <=15) {
+    if (previousHeight = 3)
+       myStepper.step(-stepsPerRevolution);
+       previousHeight = 2;
+  }
+
+  if (cm > 10 && cm <=15) {
+    if (previousHeight = 4)
+       myStepper.step(-stepsPerRevolution*2);
+       previousHeight = 2;
+  }
+
+  if (cm > 10 && cm <=15) {
+    if (previousHeight = 5)
+       myStepper.step(-stepsPerRevolution*3);
+       previousHeight = 2;
+  }
+
+   if (cm > 15 && cm <=20) {
+    if (previousHeight = 0)
+    myStepper.step(stepsPerRevolution*3);
+    previousHeight = 3;
+  }  
+
+  if (cm > 15 && cm <=20) {
+    if (previousHeight = 1)
+    myStepper.step(stepsPerRevolution*2);
+    previousHeight = 3;
+  }
+
+   if (cm > 15 && cm <=20) {
+    if (previousHeight = 2)
+    myStepper.step(stepsPerRevolution);
+    previousHeight = 3;
+  }
+
+ if (cm > 15 && cm <=20) {
+    if (previousHeight = 4)
+    myStepper.step(-stepsPerRevolution);
+    previousHeight = 3;
+  }
+
+ if (cm > 15 && cm <=20) {
+    if (previousHeight = 5)
+    myStepper.step(-stepsPerRevolution*2);
+    previousHeight = 3;
+  }
+  
+ if (cm > 20 && cm <=25) {
+    if (previousHeight = 0)
+    myStepper.step(stepsPerRevolution*4);
+    previousHeight = 4;
+  }
+
+ if (cm > 20 && cm <=25) {
+    if (previousHeight = 1)
+    myStepper.step(stepsPerRevolution*3);
+    previousHeight = 4;
+  }
+
+ if (cm > 20 && cm <=25) {
+    if (previousHeight = 2)
+    myStepper.step(stepsPerRevolution*2);
+    previousHeight = 4;
+  }
+
+ if (cm > 20 && cm <=25) {
+    if (previousHeight = 3)
+    myStepper.step(stepsPerRevolution);
+    previousHeight = 4;
+  }
+
+ if (cm > 20 && cm <=25) {
+    if (previousHeight = 5)
+    myStepper.step(-stepsPerRevolution);
+    previousHeight = 4;
+  }
+  
+if (cm > 25 && cm <=30) {
+    if (previousHeight = 0)
+    myStepper.step(stepsPerRevolution*5);
+    previousHeight = 5;
+  }
+
+if (cm > 25 && cm <=30) {
+    if (previousHeight = 1)
+    myStepper.step(stepsPerRevolution*4);
+    previousHeight = 5;
+  }
+
+if (cm > 25 && cm <=30) {
+    if (previousHeight = 2)
+    myStepper.step(stepsPerRevolution*3);
+    previousHeight = 5;
+  }
+
+if (cm > 25 && cm <=30) {
+    if (previousHeight = 3)
+    myStepper.step(stepsPerRevolution*2);
+    previousHeight = 5;
+  }
+
+if (cm > 25 && cm <=30) {
+    if (previousHeight = 4)
+    myStepper.step(stepsPerRevolution);
+    previousHeight = 5;
+  }
+  
+  if (cm > 30){
+  myStepper.step(0);
+  }
+}
+long microsecondsToCentimeters(long microseconds)
+
+{return microseconds / 29 / 2;}
