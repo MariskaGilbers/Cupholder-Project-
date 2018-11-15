@@ -5,7 +5,7 @@
  *  stepsPerRevolution geeft aan hoeveel stapjes de microcontroller moet doen om 1
  *  keer rond te draaien.
  */
-const int stepsPerRevolution = 360;
+const int stepsPerRevolution = 180;
 const int trigPin = 2;
 const int echoPin = 4;
 int previousHeight = 0;
@@ -45,11 +45,17 @@ Serial.print("cm");
 
 Serial.println();
 
+Serial.println(previousHeight);
+
 delay(500);
 
  if (cm >= 5 && cm  <= 10) {
   if (previousHeight = 0){
     myStepper.step(stepsPerRevolution);
+    previousHeight = 1;
+  }
+  if (previousHeight = 1){
+    myStepper.step(0);
     previousHeight = 1;
   }
   if (previousHeight = 2){
@@ -78,6 +84,10 @@ delay(500);
        myStepper.step(stepsPerRevolution);
        previousHeight = 2;
   }
+  if (previousHeight = 2){
+    myStepper.step(0);
+    previousHeight = 2;
+  }
    if (previousHeight = 3){
        myStepper.step(-stepsPerRevolution);
        previousHeight = 2;
@@ -103,6 +113,10 @@ delay(500);
   }
   if (previousHeight = 2){
     myStepper.step(stepsPerRevolution);
+    previousHeight = 3;
+  }
+  if (previousHeight = 3){
+    myStepper.step(0);
     previousHeight = 3;
   }
   if (previousHeight = 4){
@@ -131,6 +145,10 @@ delay(500);
     myStepper.step(stepsPerRevolution);
     previousHeight = 4;
   }
+  if (previousHeight = 4){
+    myStepper.step(0);
+    previousHeight = 4;
+  }
   if (previousHeight = 5){
     myStepper.step(-stepsPerRevolution);
     previousHeight = 4;
@@ -155,6 +173,10 @@ delay(500);
   }
   if (previousHeight = 4){
     myStepper.step(stepsPerRevolution);
+    previousHeight = 5;
+  }
+  if (previousHeight = 5){
+    myStepper.step(0);
     previousHeight = 5;
   }
 } 
