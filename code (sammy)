@@ -1,0 +1,148 @@
+#include <Stepper.h>
+
+
+/* 
+ *  stepsPerRevolution geeft aan hoeveel stapjes de microcontroller moet doen om 1
+ *  keer rond te draaien.
+ */
+const int stepsPerRevolution = 360;
+const int trigPin = 2;
+const int echoPin = 4;
+int previousHeight = 0;
+
+Stepper myStepper(stepsPerRevolution, 8, 10, 9, 11);
+
+void setup() {
+  // put your setup code here, to run once:
+  myStepper.setSpeed(50);
+  Serial.begin(9600);
+}
+
+void loop() {
+  // put your main code here, to run repeatedly:
+long duration, cm;
+pinMode(trigPin, OUTPUT);
+
+digitalWrite(trigPin, LOW);
+
+delayMicroseconds(10);
+
+digitalWrite(trigPin, HIGH);
+
+delayMicroseconds(10);
+
+digitalWrite(trigPin, LOW);
+
+pinMode(echoPin, INPUT);
+
+duration = pulseIn(echoPin, HIGH);
+
+cm = microsecondsToCentimeters(duration);
+
+Serial.print(cm);
+
+Serial.print("cm");
+
+Serial.println();
+
+delay(500);
+
+if (cm >= 5 && cm  <= 10) {
+      int b = 1;
+    // b de de vermenigvuldiging met stepsPerRevolution, die niet 0 mag zijn
+    int c = 1;
+    // c is de waarde waarbij hij stil moet staan, wat gelijk is aan wat de previousHeight moet worden 
+  for (int a = 0; a < 6; a = a+1){
+    // Niet helemaal zeker of de a < 6 klopt, maar hij moet van 0 tot 5 gaan dus denk wel
+
+     if (a = c){  // b is hier 0, dit moet worden geskipt, dus worden de waardes aangepast
+        a = a+1;
+        b = b-1;
+      }
+      
+    if (previousHeight = a){
+      myStepper.step(stepsPerRevolution*b);
+      previousHeight = c;
+      // De waardes worden hier ingevult zodat ze de volgorde volgen, de stilstaande stap is inbegrepen
+     
+    }
+      b = b-1;  // De vermenigvuldigings factor wordt aangepast
+   }
+}
+
+// Dit is bijna hetzelfde, alleen de eerste if, en b en c zijn anders
+if (cm > 10 && cm <=15) {
+    int b = 2;
+    int c = 2;
+  for (int a = 0; a < 6; a = a + 1){
+    if (a = c){  // b is hier 0, dit moet worden geskipt, dus worden de waardes aangepast
+        a = a+1;
+        b = b-1;
+      }
+    if (previousHeight = a){
+       myStepper.step(stepsPerRevolution*b);
+       previousHeight = c;
+    }
+    b = b+1;
+
+  }
+}
+
+if (cm > 15 && cm <=20) {
+    int b = 3;
+    int c = 3;
+  for (int a = 0; a < 6; a = a + 1){
+    if (a = c){  // b is hier 0, dit moet worden geskipt, dus worden de waardes aangepast
+        a = a+1;
+        b = b-1;
+      }
+    if (previousHeight = a){
+       myStepper.step(stepsPerRevolution*b);
+       previousHeight = c;
+    }
+    b = b+1;
+
+  }
+}
+
+if (cm > 20 && cm <=25) {
+    int b = 4;
+    int c = 4;
+  for (int a = 0; a < 6; a = a + 1){
+    if (a = c){  // b is hier 0, dit moet worden geskipt, dus worden de waardes aangepast
+        a = a+1;
+        b = b-1;
+      }
+    if (previousHeight = a){
+       myStepper.step(stepsPerRevolution*b);
+       previousHeight = c;
+    }
+    b = b+1;
+
+  }
+}
+
+if (cm > 25 && cm <=30) {
+    int b = 5;
+    int c = 5;
+  for (int a = 0; a < 6; a = a + 1){
+    if (a = c){  // b is hier 0, dit moet worden geskipt, dus worden de waardes aangepast
+        a = a+1;
+        b = b-1;
+      }
+    if (previousHeight = a){
+       myStepper.step(stepsPerRevolution*b);
+       previousHeight = c;
+    }
+    b = b+1;
+
+  }
+}
+if (cm > 30){
+  myStepper.step(0);
+  }
+}
+  
+long microsecondsToCentimeters(long microseconds)
+
+{return microseconds / 29 / 2;}
