@@ -83,7 +83,7 @@ if (cm > 10 && cm <=15) {
        myStepper.step(stepsPerRevolution*b);
        previousHeight = c;
     }
-    b = b+1;
+    b = b-1;
 
   }
 }
@@ -100,7 +100,7 @@ if (cm > 15 && cm <=20) {
        myStepper.step(stepsPerRevolution*b);
        previousHeight = c;
     }
-    b = b+1;
+    b = b-1;
 
   }
 }
@@ -117,7 +117,7 @@ if (cm > 20 && cm <=25) {
        myStepper.step(stepsPerRevolution*b);
        previousHeight = c;
     }
-    b = b+1;
+    b = b-1;
 
   }
 }
@@ -134,7 +134,7 @@ if (cm > 25 && cm <=30) {
        myStepper.step(stepsPerRevolution*b);
        previousHeight = c;
     }
-    b = b+1;
+    b = b-1;
 
   }
 }
