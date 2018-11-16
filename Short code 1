@@ -1,0 +1,88 @@
+#include <Stepper.h>
+
+
+/* 
+ *  stepsPerRevolution geeft aan hoeveel stapjes de microcontroller moet doen om 1
+ *  keer rond te draaien.
+ */
+const int stepsPerRevolution = 180;
+const int trigPin = 2;
+const int echoPin = 4;
+int previous = 1;
+int next;
+
+Stepper myStepper(stepsPerRevolution, 8, 10, 9, 11);
+
+void setup() {
+  // 
+  myStepper.setSpeed(50);
+  Serial.begin(9600);
+}
+
+void loop() {
+ 
+  // pinModes and setup
+long duration, cm;
+pinMode(trigPin, OUTPUT);
+
+digitalWrite(trigPin, LOW);
+
+delayMicroseconds(10);
+
+digitalWrite(trigPin, HIGH);
+
+delayMicroseconds(10);
+
+digitalWrite(trigPin, LOW);
+
+pinMode(echoPin, INPUT);
+
+duration = pulseIn(echoPin, HIGH);
+
+cm = microsecondsToCentimeters(duration);
+
+Serial.print(cm);
+
+Serial.print("cm");
+
+Serial.println();
+
+Serial.println(previous);
+
+delay(500); //why is this delay here?
+
+
+  //declare hight of the person useing the sonar
+if (cm > 5 && cm <= 10) {
+  next = 1;
+}
+else if (cm > 10 && cm <= 15) {
+  next = 2;
+}
+else if (cm > 15 && cm <= 20) {
+  next = 3;
+}
+else if (cm > 20 && cm <= 25) {
+  next = 4;
+}
+else if (cm > 25 && cm <= 30) {
+  next = 5;
+}
+ else if (cm > 30){
+  myStepper.step(0);
+  }
+
+  //set amount of steps
+ if (next =! previous) {
+  myStepper.step(stepsPerRevolution*(next-previous));
+  previous = next;
+ }
+  //when the hight is the same as it was before, don't do anything.
+ else {
+  myStepper.step(0);
+ }
+}
+ 
+long microsecondsToCentimeters(long microseconds)
+
+{return microseconds / 29 / 2;}
